@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LLM — Geopolitics</title>
+<meta name="description" content="A daily geopolitical brief and a political education built backwards from it. Wire-sourced, corrections in public.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+
+  <header class="masthead">
+    <a class="mark" href="./">
+      <h1>LLM</h1>
+      <span class="tag">Geopolitical Intelligence</span>
+    </a>
+    <div class="stamp">
+      <b id="latest-stamp">—</b><br>
+      Published daily, 06:00 Central
+    </div>
+  </header>
+
+  <div class="creed">
+    <span><b>Sourcing</b> Reuters · AP first</span>
+    <span><b>Bias check</b> Ground News</span>
+    <span><b>Corrections</b> in public, in the brief</span>
+    <span><b>Selection</b> structural, not dramatic</span>
+  </div>
+
+  <main id="lead" class="lead" hidden>
+    <div class="kicker">Latest edition</div>
+    <h2><a id="lead-link" href="#"></a></h2>
+    <p class="standfirst" id="lead-standfirst"></p>
+    <div class="leadmeta">
+      <span id="lead-when"></span>
+      <span class="concept" id="lead-concept"></span>
+      <a class="readon" id="lead-readon" href="#">Read the brief →</a>
+    </div>
+  </main>
+
+  <section class="archive">
+    <h3>Every edition</h3>
+    <div id="archive-list">
+      <p class="loading">Loading editions…</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p><strong>What this is.</strong> One brief each morning: what moved, why it matters
+      structurally, and the concept each event teaches. Concepts are filed the day an event
+      makes them necessary, so the ledger is a curriculum written by what the world actually
+      did rather than by a syllabus decided in advance.</p>
+    <p><strong>How it is sourced.</strong> Reuters and the Associated Press are the default
+      and the tiebreaker. Center-rated outlets come second, checked against Ground News at the
+      time of use. Anything else is used only when it is the only source carrying a story, and
+      is labeled inline with its lean. Where a wire and a non-wire source disagree, the wire
+      wins and the disagreement is stated.</p>
+    <p><strong>Corrections</strong> are marked inside the day's brief, never by rewriting
+      history.</p>
+    <p>Written with Claude. Source and full archive:
+      <a href="https://github.com/ncm7/Geopolitics">github.com/ncm7/Geopolitics</a></p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var archive = document.getElementById('archive-list');
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  function href(b) { return 'brief.html?d=' + encodeURIComponent(b.date); }
+
+  function renderLead(b) {
+    var lead = document.getElementById('lead');
+    var link = document.getElementById('lead-link');
+    link.textContent = b.headline;
+    link.href = href(b);
+    document.getElementById('lead-standfirst').textContent = b.standfirst || '';
+    document.getElementById('lead-when').textContent =
+      'Day ' + String(b.day).padStart(3, '0') + ' · ' + b.weekday + ', ' + b.display;
+    document.getElementById('lead-concept').textContent = 'Concept: ' + b.concept;
+    document.getElementById('lead-readon').href = href(b);
+    document.getElementById('latest-stamp').textContent =
+      'DAY ' + String(b.day).padStart(3, '0') + ' · ' + b.display.toUpperCase();
+    lead.hidden = false;
+  }
+
+  function renderArchive(list) {
+    if (!list.length) {
+      archive.innerHTML = '<p class="loading">No editions yet.</p>';
+      return;
+    }
+    archive.innerHTML = list.map(function (b) {
+      return '<article class="edition">' +
+        '<div class="when"><b>Day ' + String(b.day).padStart(3, '0') + '</b>' +
+        esc(b.display) + '</div>' +
+        '<div><h4><a href="' + esc(href(b)) + '">' + esc(b.headline) + '</a></h4>' +
+        '<p>' + esc(b.standfirst || '') + '</p>' +
+        '<div class="concept">Concept filed: ' + esc(b.concept) + '</div></div>' +
+        '</article>';
+    }).join('');
+  }
+
+  fetch('briefs.json', { cache: 'no-store' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (list) {
+      list.sort(function (a, b) { return b.date.localeCompare(a.date); });
+      if (list.length) renderLead(list[0]);
+      renderArchive(list);
+    })
+    .catch(function (e) {
+      archive.innerHTML = '<div class="failed"><b>Could not load the edition list.</b>' +
+        'briefs.json failed to load (' + esc(e.message) + '). If this site was just ' +
+        'published, GitHub Pages can take a minute to build.</div>';
+    });
+})();
+</script>
+</body>
+</html>

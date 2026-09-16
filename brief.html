@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LLM — Geopolitics</title>
+<meta name="description" content="A daily geopolitical brief, wire-sourced, with the concept each event teaches.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="md.js"></script>
+</head>
+<body>
+<div class="shell">
+
+  <header class="masthead">
+    <a class="mark" href="./">
+      <h1>LLM</h1>
+      <span class="tag">Geopolitical Intelligence</span>
+    </a>
+    <div class="stamp">
+      <b id="stamp">—</b><br>
+      Wire-sourced · Reuters, AP, Ground News
+    </div>
+  </header>
+
+  <main class="reader">
+    <a class="backlink" href="./">← All editions</a>
+    <article class="doc" id="doc">
+      <p class="loading">Loading the brief…</p>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <p>Sourcing hierarchy: Reuters and AP first, then center-rated outlets checked against
+      Ground News, then anything else only when it is the only source — labeled inline with
+      its lean. Corrections are marked inside the brief, never by rewriting history.</p>
+    <p>Full archive and source:
+      <a href="https://github.com/ncm7/Geopolitics">github.com/ncm7/Geopolitics</a></p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var doc = document.getElementById('doc');
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  function fail(title, detail) {
+    doc.innerHTML = '<div class="failed"><b>' + esc(title) + '</b>' + esc(detail) + '</div>';
+  }
+
+  var date = (new URLSearchParams(location.search)).get('d') || '';
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    fail('No edition specified.',
+         'Add ?d=YYYY-MM-DD to the address, or go back to the edition list.');
+    return;
+  }
+
+  var year = date.slice(0, 4);
+  // Wherever the markdown ended up, try the likely spots in order.
+  var candidates = [
+    'briefs/' + year + '/' + date + '.md',
+    'briefs/' + date + '.md',
+    date + '.md'
+  ];
+
+  // Masthead metadata, best effort — the brief renders either way.
+  fetch('briefs.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (list) {
+      var b = list.filter(function (x) { return x.date === date; })[0];
+      if (!b) return;
+      document.getElementById('stamp').textContent =
+        'DAY ' + String(b.day).padStart(3, '0') + ' · ' + b.display.toUpperCase();
+      document.title = 'LLM · ' + b.display;
+    })
+    .catch(function () {});
+
+  function tryNext(i) {
+    if (i >= candidates.length) {
+      fail('Could not find that edition.',
+           'Looked for ' + candidates.join(', ') +
+           ' and found none. Check that the file is committed to the repository.');
+      return;
+    }
+    fetch(candidates[i], { cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function (md) {
+        doc.innerHTML = window.renderMarkdown(md);
+        Array.prototype.forEach.call(doc.querySelectorAll('table'), function (t) {
+          var wrap = document.createElement('div');
+          wrap.className = 'tablewrap';
+          t.parentNode.insertBefore(wrap, t);
+          wrap.appendChild(t);
+        });
+      })
+      .catch(function () { tryNext(i + 1); });
+  }
+
+  tryNext(0);
+})();
+</script>
+</body>
+</html>
