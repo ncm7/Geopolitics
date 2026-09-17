@@ -1,5 +1,11 @@
 # Thread: Hormuz / the 2026 Iran war
-*Current as of 16 September 2026 · wire-sourced*
+*Current as of 17 September 2026 · wire-sourced*
+
+#### What moved — 17 September
+
+Brent **$103.48** (−2.2%), WTI $100.65, diesel a record $6.396/gal. Trump said he hopes the war ends soon and that Iran has contacted him wanting a deal; he is due to meet Gulf leaders at the UN General Assembly on Tuesday. Treat the claim as a claim and the incentive as real — the Fed's first hike in three years put a domestic price on this war.
+
+A UN fact-finding mission chaired by Sara Hossain found reasonable grounds to believe the United States committed war crimes in two strikes on 28 February, and that Iran committed crimes against humanity against its own people. That has its own thread: `iran-war-accountability.md`.
 
 
 Active

@@ -1,5 +1,15 @@
 # Thread: India's macro exposure to the Gulf
-*Current as of 16 September 2026 · wire-sourced*
+*Current as of 17 September 2026 · wire-sourced*
+
+#### What moved — 17 September
+
+The **Federal Reserve raised rates 25bp to 3.75–4.00%** on 16 September, unanimously — the first increase in three years. Chair **Kevin Warsh**: "Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2% goal." August inflation ran 3.4%. Policymakers project one further quarter-point this year and none in 2027.
+
+Energy: diesel set a record at **$6.396 a gallon**; Brent **$103.48** (−2.2%), WTI $100.65, against a pre-war crude level near $72. The Nifty 50 closed at a five-month low on 15 September on elevated oil and bond yields.
+
+State the transmission chain plainly, because it is the whole thread: Hormuz → diesel → US CPI → the Fed → the global cost of capital → Indian equities and the rupee. India's rate problem is being set in Washington by an oil price set in the Gulf.
+
+One political note. An administration with an implicit oil-under-$100 target now has a monetary authority acting on the same variable — which raises the price of Gulf escalation before 3 November and lowers the price of a settlement. Apply that frame to Trump's claim this week that Iran has approached him wanting a deal.
 
 
 Live

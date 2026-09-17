@@ -1,5 +1,11 @@
 # Thread: Russia–Ukraine
-*Current as of 16 September 2026 · wire-sourced*
+*Current as of 17 September 2026 · wire-sourced*
+
+#### What moved — 16–17 September
+
+Rosneft's **Syzran and Saratov** refineries halted operations after Ukrainian drone attacks. On the running count, **three of Russia's six largest diesel-producing refineries** are now sharply reduced or fully shut. Global diesel set a record at $6.396 a gallon. The proposed energy truce remains unagreed and unobserved by both sides.
+
+The Graham Act passed the House 262–159 and is on the president's desk — the Ukraine-adjacent instrument with the widest blast radius, since its tariff authority points at India and China rather than at Russia.
 
 
 The energy war enters negotiation

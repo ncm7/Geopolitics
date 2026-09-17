@@ -1,5 +1,11 @@
 # Thread: India–Pakistan maritime
-*Current as of 16 September 2026 · wire-sourced*
+*Current as of 17 September 2026 · wire-sourced*
+
+#### What moved — 17 September
+
+Nothing, and that is the datapoint. Pakistan has still issued no public account of the collision. A technical explanation would have been cheap and fast, and it has not come.
+
+Hold this next to the Saudi thread: Islamabad is simultaneously declining Saudi requests to engage the Houthis and staying silent toward Delhi — two different reticences, both consistent with a state conserving room for manoeuvre on every front at once.
 
 
 Opened 16 Sept
